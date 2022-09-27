@@ -12,8 +12,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var Display: UILabel!
     
-    var calculatedValue = 0
-    
     @IBOutlet weak var CButton: UIButton!
     @IBOutlet weak var PositiveOrNegativeButton: UIButton!
     @IBOutlet weak var PercentageButton: UIButton!
@@ -36,6 +34,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var EightButton: UIButton!
     @IBOutlet weak var NineButton: UIButton!
     
+    @IBOutlet var numberPad: [UIButton]!
     
     
     
@@ -66,55 +65,74 @@ class ViewController: UIViewController {
         NineButton.layer.cornerRadius = NineButton.bounds.height / 2.1
     }
     
-    @IBAction func ClearAction(_ sender: Any) {
-    }
-    @IBAction func PositiveOrNegativeAction(_ sender: Any) {
-    }
-    @IBAction func PercentageAction(_ sender: Any) {
-    }
+    var firstValue: Double = 0
+    var operation = ""
     
-    @IBAction func DivisionAction(_ sender: Any) {
-    }
-    @IBAction func MultiplicationAction(_ sender: Any) {
-    }
-    @IBAction func SubtractionButton(_ sender: Any) {
-    }
-    @IBAction func AdditionAction(_ sender: Any) {
-        CButton.titleLabel?.text = "C"
-    }
-    @IBAction func EqualsAction(_ sender: Any) {
-    }
-    @IBAction func DecimalActon(_ sender: Any) {
-    }
+    let divide: (Double, Double) -> Double = (/)
+    let multiply: (Double, Double) -> Double = (*)
+    let add: (Double, Double) -> Double = (+)
+    let subtract: (Double, Double) -> Double = (-)
+    
+//    let numberPad2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+//    let operators = ["AC", "+/=", "%"]
+    
+//    func updateLabelValue() {
+//        if let display = Display.text {
+//            if let display = Double(display) {
+//                labelValue = display
+//            }
+//        }
+//    }
     
     @IBAction func numberTapped(_ sender: UIButton) {
 //        calculatedValue = Int(sender.titleLabel?.text)
+        
         if Display.text == "0" {
             if sender.titleLabel?.text == "." {
                 (Display.text)! += (sender.titleLabel?.text)!
             } else {
             (Display.text)! = (sender.titleLabel?.text)!
             }
+        } else if sender.titleLabel?.text == "." {
+            if (Display.text)!.contains(".") {
+                print("Display already contains a decimal.")
+            } else {
+                (Display.text)! += (sender.titleLabel?.text)!
+                }
         } else {
-        (Display.text)! += (sender.titleLabel?.text)!
+                (Display.text)! += (sender.titleLabel?.text)!
         }
         
     }
+        
     
     @IBAction func functionTapped(_ sender: UIButton) {
     
         switch sender.titleLabel?.text {
             case "AC":
+                firstValue = 0
+                operation = ""
                 (Display.text)! = "0"
+                
+                PercentageButton.backgroundColor = .darkGray;
+                DivisionButton.backgroundColor = .orange;
+                DivisionButton.tintColor = .white;
+                MultiplicationButton.backgroundColor = .orange;
+                MultiplicationButton.tintColor = .white;
+                SubtractionButton.backgroundColor = .orange;
+                SubtractionButton.tintColor = .white;
+                AdditionButton.backgroundColor = .orange;
+                AdditionButton.tintColor = .white
             case "+/-":
                 if (Display.text)!.contains("-") {
                     (Display.text)!.remove(at: (Display.text)!.startIndex)
                 } else {
                     Display.text = "-" + Display.text!
                 }
-           
-            
             case "%":
+                Display.text = "\(divide((Double((Display.text)!))!, 100))"
+//
+                
                 PercentageButton.backgroundColor = .white;
                 DivisionButton.backgroundColor = .orange;
                 DivisionButton.tintColor = .white;
@@ -126,6 +144,10 @@ class ViewController: UIViewController {
                 AdditionButton.tintColor = .white
             
             case "/":
+                firstValue = ((Double((Display.text)!))!)
+                operation = "/"
+                Display.text = "0"
+
                 DivisionButton.backgroundColor = .white;
                 DivisionButton.tintColor = .black;
                 PercentageButton.backgroundColor = .darkGray;
@@ -137,6 +159,10 @@ class ViewController: UIViewController {
                 AdditionButton.tintColor = .white
             
             case "x":
+                firstValue = ((Double((Display.text)!))!)
+                operation = "*"
+                Display.text = "0"
+            
                 MultiplicationButton.backgroundColor = .white;
                 MultiplicationButton.tintColor = .black;
                 PercentageButton.backgroundColor = .darkGray;
@@ -148,6 +174,10 @@ class ViewController: UIViewController {
                 AdditionButton.tintColor = .white
                 
             case "-":
+                firstValue = ((Double((Display.text)!))!)
+                operation = "-"
+                Display.text = "0"
+            
                 SubtractionButton.backgroundColor = .white;
                 SubtractionButton.tintColor = .black;
                 PercentageButton.backgroundColor = .darkGray;
@@ -159,6 +189,10 @@ class ViewController: UIViewController {
                 AdditionButton.tintColor = .white
                 
             case "+":
+                firstValue = ((Double((Display.text)!))!)
+                operation = "+"
+                Display.text = "0"
+            
                 AdditionButton.backgroundColor = .white;
                 AdditionButton.tintColor = .black;
                 PercentageButton.backgroundColor = .darkGray;
@@ -170,6 +204,19 @@ class ViewController: UIViewController {
                 SubtractionButton.tintColor = .white;
                 
             case "=":
+                if operation == "/" {
+                    Display.text = "\(divide(firstValue, (Double((Display.text)!))!))"
+                } else if operation == "*" {
+                    Display.text = "\(multiply(firstValue, (Double((Display.text)!))!))"
+                } else if operation == "+" {
+                    Display.text = "\(add(firstValue, (Double((Display.text)!))!))"
+                } else if operation == "-" {
+                    Display.text = "\(subtract(firstValue, (Double((Display.text)!))!))"
+                }
+                
+                firstValue = 0
+                operation = ""
+            
                 PercentageButton.backgroundColor = .darkGray;
                 DivisionButton.backgroundColor = .orange;
                 DivisionButton.tintColor = .white;
@@ -180,7 +227,7 @@ class ViewController: UIViewController {
                 AdditionButton.backgroundColor = .orange;
                 AdditionButton.tintColor = .white
             default:
-            numberTapped(UIButton)
+                numberTapped(sender)
         }
     }
 

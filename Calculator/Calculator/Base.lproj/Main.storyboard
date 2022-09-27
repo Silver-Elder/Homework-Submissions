@@ -51,7 +51,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="AC"/>
                                                                 <connections>
-                                                                    <action selector="ClearAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iKi-Hz-urG"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oQn-Sy-KDs"/>
                                                                 </connections>
                                                             </button>
@@ -62,7 +61,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="+/-"/>
                                                                 <connections>
-                                                                    <action selector="PositiveOrNegativeAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3wk-Uh-Ee9"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pPf-uK-len"/>
                                                                 </connections>
                                                             </button>
@@ -73,7 +71,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="%"/>
                                                                 <connections>
-                                                                    <action selector="PercentageAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IFy-ou-83Y"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="duT-Vi-Fxy"/>
                                                                 </connections>
                                                             </button>
@@ -84,7 +81,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="/"/>
                                                                 <connections>
-                                                                    <action selector="DivisionAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="idi-Op-L51"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ugb-5R-e3c"/>
                                                                 </connections>
                                                             </button>
@@ -138,7 +134,6 @@
                                                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="MultiplicationAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VdD-3J-Pa5"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gya-w0-Ibk"/>
                                                                 </connections>
                                                             </button>
@@ -192,7 +187,6 @@
                                                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="SubtractionButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T7i-l2-szU"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yq9-Q5-6rD"/>
                                                                 </connections>
                                                             </button>
@@ -238,7 +232,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="+"/>
                                                                 <connections>
-                                                                    <action selector="AdditionAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T06-GK-Ruh"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t22-Uv-nw2"/>
                                                                 </connections>
                                                             </button>
@@ -264,7 +257,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="."/>
                                                                 <connections>
-                                                                    <action selector="DecimalActon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cgB-4F-URd"/>
                                                                     <action selector="numberTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XDt-Zv-ChZ"/>
                                                                 </connections>
                                                             </button>
@@ -275,7 +267,6 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="="/>
                                                                 <connections>
-                                                                    <action selector="EqualsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lbo-8d-0V3"/>
                                                                     <action selector="functionTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aXb-9N-FNW"/>
                                                                 </connections>
                                                             </button>
@@ -333,6 +324,17 @@
                         <outlet property="ThreeButton" destination="SfB-3s-6YM" id="yBv-r3-0oX"/>
                         <outlet property="TwoButton" destination="dhH-yd-gDk" id="XJU-CI-wUR"/>
                         <outlet property="ZeroButton" destination="CLj-vn-QB4" id="h0g-YD-gYb"/>
+                        <outletCollection property="numberPad" destination="UWe-6p-tCE" collectionClass="NSMutableArray" id="AX5-Qu-StB"/>
+                        <outletCollection property="numberPad" destination="CLj-vn-QB4" collectionClass="NSMutableArray" id="4Kn-II-dUk"/>
+                        <outletCollection property="numberPad" destination="SfB-3s-6YM" collectionClass="NSMutableArray" id="TGi-fH-efI"/>
+                        <outletCollection property="numberPad" destination="dhH-yd-gDk" collectionClass="NSMutableArray" id="91I-fM-MjQ"/>
+                        <outletCollection property="numberPad" destination="7se-8A-UJz" collectionClass="NSMutableArray" id="2fe-UF-601"/>
+                        <outletCollection property="numberPad" destination="4PO-H3-LeZ" collectionClass="NSMutableArray" id="84y-uv-sVj"/>
+                        <outletCollection property="numberPad" destination="7uG-Mg-t1K" collectionClass="NSMutableArray" id="aPP-VO-6Co"/>
+                        <outletCollection property="numberPad" destination="SnE-wi-W0v" collectionClass="NSMutableArray" id="k5u-Ca-egH"/>
+                        <outletCollection property="numberPad" destination="7FL-UF-drk" collectionClass="NSMutableArray" id="gYw-hG-hJ9"/>
+                        <outletCollection property="numberPad" destination="H8K-T5-LWk" collectionClass="NSMutableArray" id="aq1-Hw-Q8c"/>
+                        <outletCollection property="numberPad" destination="TeY-hr-HBS" collectionClass="NSMutableArray" id="08x-9I-S0j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
