@@ -16,32 +16,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counter Value:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-OI-nDW">
-                                <rect key="frame" x="101.5" y="587" width="211" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counter Value:" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-OI-nDW">
+                                <rect key="frame" x="101.5" y="564" width="211" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrk-5m-H2x">
-                                <rect key="frame" x="28.5" y="445" width="357" height="44"/>
+                                <rect key="frame" x="28.5" y="426" width="357" height="44"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="PUSH. THAT. BUTTON!!!" titleAlignment="center">
                                     <fontDescription key="titleFontDescription" name="HoeflerText-Italic" family="Hoefler Text" pointSize="30"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="buttonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Gy-ri-tWt"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter your value here!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-he-g0F">
-                                <rect key="frame" x="83" y="337" width="248" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your value here!" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-he-g0F">
+                                <rect key="frame" x="83" y="321" width="248" height="34"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How much do you want the counter to go up by?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="88T-JP-LML">
-                                <rect key="frame" x="24" y="250" width="366" height="79"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="How much do you want the counter to go up by?" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="88T-JP-LML">
+                                <rect key="frame" x="24" y="234" width="366" height="79"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="gP3-mN-Pzl">
-                                <rect key="frame" x="192" y="647" width="30.5" height="59"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="gP3-mN-Pzl">
+                                <rect key="frame" x="192" y="623" width="30.5" height="58.5"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -55,7 +58,6 @@
                             <constraint firstItem="gP3-mN-Pzl" firstAttribute="top" secondItem="6xt-OI-nDW" secondAttribute="bottom" multiplier="1.05" id="Dc6-kA-Nxv"/>
                             <constraint firstItem="xrk-5m-H2x" firstAttribute="top" secondItem="FnQ-he-g0F" secondAttribute="bottom" multiplier="1.2" id="JW4-US-qk0"/>
                             <constraint firstItem="xrk-5m-H2x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="Rkg-lJ-109"/>
-                            <constraint firstItem="88T-JP-LML" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="Usp-6a-jlk"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="88T-JP-LML" secondAttribute="trailing" constant="15" id="V2V-9j-h4V"/>
                             <constraint firstItem="FnQ-he-g0F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Veo-G6-2Qo"/>
                             <constraint firstItem="gP3-mN-Pzl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="akE-tp-fFD"/>
@@ -65,11 +67,15 @@
                             <constraint firstItem="FnQ-he-g0F" firstAttribute="top" secondItem="88T-JP-LML" secondAttribute="bottom" constant="8" symbolic="YES" id="f3a-dX-kDq"/>
                             <constraint firstItem="6xt-OI-nDW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fFm-w9-EtI"/>
                             <constraint firstItem="88T-JP-LML" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hBE-E5-3xX"/>
-                            <constraint firstItem="88T-JP-LML" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" multiplier="5" constant="30" id="xKx-Qc-Pi7"/>
+                            <constraint firstItem="xrk-5m-H2x" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="kbq-hV-qV9"/>
+                            <constraint firstItem="88T-JP-LML" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="zF3-cy-dg2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="counter" destination="gP3-mN-Pzl" id="tgk-Y5-mTJ"/>
                         <outlet property="counterButton" destination="xrk-5m-H2x" id="pkV-qw-LEr"/>
+                        <outlet property="prompt" destination="88T-JP-LML" id="FWQ-re-J2k"/>
+                        <outlet property="userInput" destination="FnQ-he-g0F" id="SUv-mV-Boe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
