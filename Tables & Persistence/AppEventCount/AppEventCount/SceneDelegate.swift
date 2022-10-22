@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         viewController = window?.rootViewController as? ViewController
         viewController?.didBecomeActiveCount += 1
-        
+        viewController?.updateView()
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }
