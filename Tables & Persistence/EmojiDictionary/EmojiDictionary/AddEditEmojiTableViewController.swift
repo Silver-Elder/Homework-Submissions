@@ -25,19 +25,20 @@ class AddEditEmojiTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        if let emoji = emoji {
-            symbolTextField.text = emoji.symbol
-            nameTextField.text = emoji.name
-            descriptionTextField.text = emoji.description
-            usageTextField.text = emoji.usage
-            title = "Edit Emoji"
-        } else {
-            title = "Add Emoji"
-        }
+    
         
+    if let emoji = emoji {
+        symbolTextField.text = emoji.symbol
+        nameTextField.text = emoji.name
+        descriptionTextField.text = emoji.description
+        usageTextField.text = emoji.usage
+        title = "Edit Emoji"
+    } else {
+        title = "Add Emoji"
+    }
         updateSaveButtonState()
     }
-    
+
     var emoji: Emoji?
     
     init?(coder: NSCoder, emoji: Emoji?) {
