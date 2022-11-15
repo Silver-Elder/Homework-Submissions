@@ -7,7 +7,17 @@
 
 import UIKit
 
-class To_DosTableViewController: UITableViewController {
+class To_DosTableViewController: UITableViewController, ToDoCellDelegate {
+    
+    func checkmarkTapped(sender: ToDoTableViewCell) {
+        if let indexPath = tableView.indexPath(for: sender) {
+            var toDo = toDos[indexPath.row]
+            toDo.isComplete.toggle()
+            toDos[indexPath.row] = toDo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(toDos)
+        }
+    }
 
     var toDos = [ToDo]()
     
@@ -37,9 +47,10 @@ class To_DosTableViewController: UITableViewController {
        
         let toDo = toDos[indexPath.row]
 
-        var content = cell.defaultContentConfiguration()
-        content.text = toDo.title
-        cell.contentConfiguration = content
+        cell.toDoTitleLabel.text = toDo.title
+        cell.toDoIsCompleteButton.isSelected = toDo.isComplete
+        
+        cell.delegate = self
         
         return cell
     }
@@ -53,33 +64,11 @@ class To_DosTableViewController: UITableViewController {
         if editingStyle == .delete {
             toDos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(toDos)
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    // MARK: - Segue Code
     
     @IBSegueAction func editToDo(_ coder: NSCoder, sender: Any?) -> NewTo_DoTableViewController? {
         let toDoDetailController = NewTo_DoTableViewController(coder: coder)
@@ -111,6 +100,9 @@ class To_DosTableViewController: UITableViewController {
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
+        
+        ToDo.saveToDos(toDos)
+        
     }
 
 }

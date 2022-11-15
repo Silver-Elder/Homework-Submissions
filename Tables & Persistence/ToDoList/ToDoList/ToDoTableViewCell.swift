@@ -7,8 +7,21 @@
 
 import UIKit
 
-class ToDoTableViewCell: UITableViewCell {
+protocol ToDoCellDelegate: AnyObject {
+    func checkmarkTapped(sender: ToDoTableViewCell)
+}
 
+class ToDoTableViewCell: UITableViewCell {
+    
+    weak var delegate: ToDoCellDelegate?
+
+    @IBOutlet weak var toDoIsCompleteButton: UIButton!
+    @IBOutlet weak var toDoTitleLabel: UILabel!
+    
+    @IBAction func toDoIsCompleteButtonTapped(_ sender: Any) {
+        delegate?.checkmarkTapped(sender: self)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
