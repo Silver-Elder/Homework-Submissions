@@ -15,9 +15,9 @@ class FoodTableViewController: UITableViewController {
     }
     
     var meals: [Meal] {
-        var breakfast = Meal(name: "Breakfast", food: [oatmeal])
-        var lunch = Meal(name: "Lunch", food: [pbh])
-        var dinner = Meal(name: "Dinner", food: [spinachSalad])
+        let breakfast = Meal(name: "Breakfast", food: [oatmeal])
+        let lunch = Meal(name: "Lunch", food: [pbh])
+        let dinner = Meal(name: "Dinner", food: [spinachSalad])
         return [breakfast, lunch, dinner]
     }
     
@@ -37,8 +37,8 @@ class FoodTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Food", for: indexPath)
         
-        var meal = meals[indexPath.section]
-        var food = meal.food[indexPath.row]
+        let meal = meals[indexPath.section]
+        let food = meal.food[indexPath.row]
         var content = cell.defaultContentConfiguration()
         
         content.text = food.name

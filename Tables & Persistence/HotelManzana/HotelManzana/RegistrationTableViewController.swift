@@ -32,11 +32,31 @@ class RegistrationTableViewController: UITableViewController {
         return cell
     }
     
+    @IBSegueAction func segueToAddRegistrationTableView(_ coder: NSCoder, sender: Any?) -> AddRegistrationTableViewController? {
+        if let cell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: cell) {
+                // Editing Room
+                let registrationToEdit = registrations[indexPath.row]
+                return AddRegistrationTableViewController(coder: coder,
+                   registration: registrationToEdit)
+            } else {
+                // Adding Emoji
+                return AddEditEmojiTableViewController(coder: coder,
+                   emoji: nil)
+            }
+    }
+    
     @IBAction func unwindFromAddRegistration(unwindSegue: UIStoryboardSegue) {
         guard let addRegistrationTableViewController = unwindSegue.source as? AddRegistrationTableViewController, let registration = addRegistrationTableViewController.registration else { return }
-            
-        registrations.append(registration)
-        tableView.reloadData()
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            registrations[selectedIndexPath.row] = registration
+            tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        } else {
+            let newIndexPath = IndexPath(row: registrations.count, section: 0)
+            registrations.append(registration)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
     }
 
 }

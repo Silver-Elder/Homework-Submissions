@@ -18,6 +18,15 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet weak var setCheckOutDateLabel: UILabel!
     @IBOutlet weak var checkOutDatePicker: UIDatePicker!
     
+    init?(coder: NSCoder, registration: Registration?) {
+        self.registration = registration
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +42,8 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    
+    var registrationToEdit: Registration?
     
     var registration: Registration? {
         guard let roomType = roomType else { return nil }
@@ -196,6 +207,12 @@ class AddRegistrationTableViewController: UITableViewController {
         selectRoomTypeController?.roomType = roomType
         
         return selectRoomTypeController
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "unwindFromAddRegistrationWithUnwindSegue:" else { return }
+        
+        
     }
     
 }

@@ -65,7 +65,9 @@ class EmojiTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmojiCell", for: indexPath) as! EmojiTableViewCell // this last part of "as! EmojiTableViewCell" force casts the "UITableViewCell" that this function returns to be OUR specific EmojiTableViewCell type.
         
-        let emoji = emojis[indexPath.row]
+        let emoji = emojis[indexPath.row] // This approach displays my emojis in the same order in which they appear in my emioji array
+        
+        // let emoji = emojis[emojis.count - 1 - indexPath.row] // This approach reverses the order of the display of the emojis in my emoji array
 
         /*
             //This was code for configuring our cells BEFORE we created our custom cell and corresponding custon cell code

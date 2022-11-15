@@ -40,6 +40,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="GXN-aJ-j8z" kind="presentation" id="TcI-r4-euV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -501,6 +504,9 @@
             <point key="canvasLocation" x="-1702" y="-601"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="qwU-Ip-sUU"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
