@@ -40,9 +40,9 @@ class RegistrationTableViewController: UITableViewController {
                 return AddRegistrationTableViewController(coder: coder,
                    registration: registrationToEdit)
             } else {
-                // Adding Emoji
-                return AddEditEmojiTableViewController(coder: coder,
-                   emoji: nil)
+                // Adding room
+                return AddRegistrationTableViewController(coder: coder,
+                   registration: nil)
             }
     }
     

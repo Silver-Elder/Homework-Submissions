@@ -34,7 +34,7 @@ struct Emoji: Codable {
     }
     
     static func loadFromFile() -> [Emoji] {
-        guard let retrivedEmojiData = try? Data(contentsOf: archiveURL), let decodedEmoji = try? PropertyListDecoder().decode([Emoji].self, from: retrivedEmojiData) else { return [] }
+        guard let retrivedEmojiData = try? Data(contentsOf: archiveURL), let decodedEmoji = try? PropertyListDecoder().decode([Emoji].self, from: retrivedEmojiData) else { return sampleEmojis }
             // based on p.171
             
         return decodedEmoji

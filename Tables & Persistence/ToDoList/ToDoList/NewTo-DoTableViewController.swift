@@ -49,7 +49,7 @@ class NewTo_DoTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     func updateSaveButton() {
-        let shouldEndableSaveButton =  titleTextField.text?.isEmpty != true
+        let shouldEndableSaveButton = titleTextField.text?.isEmpty != true
         saveButton.isEnabled = shouldEndableSaveButton
     }
     
@@ -141,5 +141,3 @@ class NewTo_DoTableViewController: UITableViewController {
         }
     }
 }
-
-// Resume @ p.296
