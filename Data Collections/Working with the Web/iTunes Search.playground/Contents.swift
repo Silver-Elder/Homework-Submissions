@@ -2,7 +2,7 @@ import UIKit
 
 
 
-var queryDictionary = ["term": "Apple", "media":"music", "limit": "3"]
+var queryDictionary = ["media": "movie", "term": "Apple", "lang": "en_us", "limit": "15"]
 
 func fetchItems(matching query: [String : String]) async throws -> [StoreItem] {
     var iTunesSearchURL = URLComponents(string: "https://itunes.apple.com/search")!
@@ -10,17 +10,17 @@ func fetchItems(matching query: [String : String]) async throws -> [StoreItem] {
     enum searchError: Error, LocalizedError {
         case itemNotFound
     }
-
+    
     iTunesSearchURL.queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value)
     }
-
+    
+    print(iTunesSearchURL.url)
+    
     let (data, response) = try await URLSession.shared.data(from: iTunesSearchURL.url!)
     
     guard let httpsResponse = response as? HTTPURLResponse, httpsResponse.statusCode == 200 else {
         throw searchError.itemNotFound
     }
-   
-    print(data.prettyPrintedJSONString())
     
     let decoder = JSONDecoder()
     
@@ -40,7 +40,7 @@ Task {
             Artwork URL: \(item.artworkURL)
             Release Date: \(item.releaseDate)
             Treack Name: \(item.trackName)
-            Track Time: \(item.trackTime / 1000 / 60)m
+            Track Time: \(item.trackTime))m
             
             
             """)
@@ -56,7 +56,7 @@ struct StoreItem: Codable {
     var artworkURL: URL
     var releaseDate: Date
     var trackName: String
-    var trackTime: Double
+    var trackTime: Double?
     
     enum CodingKeys: String, CodingKey {
         case artistName
@@ -74,7 +74,9 @@ struct StoreItem: Codable {
         artworkURL = try values.decode(URL.self, forKey: CodingKeys.artworkURL)
         releaseDate = try values.decode(Date.self, forKey: CodingKeys.releaseDate)
         trackName = try values.decode(String.self, forKey: CodingKeys.trackName)
-        trackTime = try values.decode(Double.self, forKey: CodingKeys.trackTime)
+        if let trackTimeMili = try? values.decode(Double.self, forKey: CodingKeys.trackTime) {
+            trackTime = ((trackTimeMili / 1000 / 60) * 100).rounded() / 100
+        }
     }
     
 }
