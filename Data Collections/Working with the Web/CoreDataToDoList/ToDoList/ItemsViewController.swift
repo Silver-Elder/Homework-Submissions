@@ -9,6 +9,17 @@ import UIKit
 
 class ItemsViewController: UIViewController {
     
+    let list: List
+    
+    init?(coder: NSCoder, list: List) {
+        self.list = list
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     enum TableSection: Int {
         case incomplete, complete
     }
@@ -63,8 +74,14 @@ extension ItemsViewController: ItemCellDelegate {
 extension ItemsViewController: ItemDelegate {
     
     func deleteItem(at indexPath: IndexPath) {
-        ItemManager.shared.delete(at: indexPath)
+        let itemToDelete = item(at: indexPath)
+        itemManager.delete(itemToDelete)
         generateNewSnapshot()
+    }
+    
+    func item(at indexPath: IndexPath) -> Item {
+        let items = indexPath.section == 0 ? itemManager.fetchItems(of: list, completed: false) : itemManager.fetchItems(of: list, completed: true)
+        return items[indexPath.row]
     }
     
 }
@@ -76,7 +93,7 @@ extension ItemsViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, !text.isEmpty else { return true }
-        itemManager.createNewItem(with: text)
+        itemManager.createNewItem(with: text, list: list)
         textField.text = ""
         generateNewSnapshot()
         return true
@@ -92,8 +109,8 @@ private extension ItemsViewController {
     func generateNewSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<TableSection, Item>()
         
-        let incomleteItems = itemManager.fetchItems(completed: false)
-        let completedItems = itemManager.fetchItems(completed: true)
+        let incomleteItems = list.itemsArray.filter( {$0.isCompleted == false} )
+        let completedItems = list.itemsArray.filter( {$0.isCompleted == true} )
         
         if !incomleteItems.isEmpty {
             snapshot.appendSections([.incomplete])
