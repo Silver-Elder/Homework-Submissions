@@ -11,7 +11,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Form { // This Form has a limit of 10 items that it can hold, but we can overcome that limit by combining different entities into 1 entity, known as a "Group"
-                /*
                 Group {
                     Image(systemName: "globe")
                         .imageScale(.large)
@@ -54,12 +53,8 @@ struct ContentView: View {
                         .foregroundColor(.accentColor)
                     Text("Hello, world!")
                 }
-                */
-                Section {
-                    Text("Hello, world!")
-                }
             }
-            .navigationTitle("SwiftUI") // This is set to display a large title by default. We can change that using this line of code vvv
+            .navigationTitle("SwiftUI") // This code creates a navigation bar, and is set to display a large title by default. We can change that using this line of code vvv
             .navigationBarTitleDisplayMode(.inline)
         }
         .padding()
