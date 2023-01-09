@@ -5,6 +5,8 @@
 //  Created by Sterling Jenkins on 1/9/23.
 //
 
+// git commit -m "Changed deployment target /see 'WePlit' next to the blue app icon in left-hand navigation bar/ from iOS 16.2 to 15. This explanded my options for all the different simluators I could run my app on /which is important for the next step of this project: 'Adding a Navigation Bar/.'"
+
 import SwiftUI
 
 struct ContentView: View {
