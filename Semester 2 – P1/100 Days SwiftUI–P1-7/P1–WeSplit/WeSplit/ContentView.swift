@@ -24,6 +24,8 @@ struct ContentView: View {
      }
      */
     
+    @State private var name = ""
+    
     var body: some View {
         VStack { // For whatever reason, xCode will allow me to create two "parent views" – in this case, my Button and NavigationView – and while my preview will display these two parent view separately, the views are automaticlly combined when the app is run. This works because of the finicky way that xCode is set up, but I shouldn't be able to do that. To combine these views the PROPER way, I should embed these two views in a VStack, as shown here. What problems would occur if I didn't, beyond the preview and running app not aligning? I honetsly have no clue 😅
             // The best way to fix this problem would really be to put the button inside the NavigationView, so I'll comment out this button to show what I was talking about before, and re-add the button in the NavView
@@ -35,6 +37,12 @@ struct ContentView: View {
             
             NavigationView {
                 Form { // This Form has a limit of 10 items that it can hold, but we can overcome that limit by combining different entities into 1 entity, known as a "Group"
+                    
+                    Section {
+                        TextField("Enter your name", text: $name)
+                        // The $name talls the computer to both show the value of 'name' in the text field, ans also to save whateve the user writes into the text field as the value of our 'name' var
+                        Text("Your name is \(name)")
+                    }
                     
                     Section {
                         Button("Tap Count: \(tapCount)") {
