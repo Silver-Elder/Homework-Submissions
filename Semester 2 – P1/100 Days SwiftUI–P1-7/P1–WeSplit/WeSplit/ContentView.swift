@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @FocusState private var amountIsFocused: Bool
+    
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 0
     @State private var tipPercentage = 20
@@ -41,6 +43,7 @@ struct ContentView: View {
                 
                     TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                             .keyboardType(.decimalPad)
+                            .focused($amountIsFocused)
                         //Note: The '@State' we're using for our checkAmount pays attention to any changes made to the vlue of that var, and takes care of reloading the tableView for us when the value of our @State var is changed so that any other parts of the app that refer to the value of that variable will also be updated (like this second section, which is set to display the value of our 'checkAmount' var. That wouldn't reflect the new amount which the var is set to in the first section if the tableView wasn't reloaded).
                         // Also Note: We could use either .numberPad or .decimalPad for our 'keyboardType()', but .decimal pad will give the user an extra "." button so they can enter decimal amouts
                         // We can also enter our 'keyboardType' onto a new line, and intent it to help up better see what modifiers we've added to our 'TestField'
@@ -69,8 +72,20 @@ struct ContentView: View {
                 Section {
                     Text(totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                 }
-            }.navigationTitle("WeSplit")
-                // Note: This needs to be added to the end of the 'Form', and NOT the NavView. That's because the NavView can house multiple views, so we need to apply the title to the specific view (our 'Form' viw, in this case), inside the NavView's body
+            }
+                .navigationTitle("WeSplit")
+                    // Note: This (^^^) needs to be added to the end of the 'Form', and NOT the NavView. That's because the NavView can house multiple views, so we need to apply the title to the specific view (our 'Form' viw, in this case), inside the NavView's body
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        
+                        Button("Done") {
+                            amountIsFocused = false
+                        }
+                    }
+                }
+                    // This toolbar add a "Done" button to our phone's keyboard, which button sets the @FocusState for whether our keyboard should be shown or not
+                
         }
     }
 }
