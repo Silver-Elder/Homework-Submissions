@@ -9,8 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = 0.0
-    @State private var numberOfPeople = 2
+    @State private var numberOfPeople = 0
     @State private var tipPercentage = 20
+    
+    var totalPerPerson: Double {
+        let accuratePeopleCount = Double(numberOfPeople + 2)
+        let tipSelection = Double(tipPercentage)
+        
+        let tipValue = checkAmount * (tipSelection / 100)
+        let grandTotal = checkAmount + tipValue
+        let amountPerPerson = grandTotal / accuratePeopleCount
+        return amountPerPerson
+    }
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
@@ -57,7 +67,7 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text(checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    Text(totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                 }
             }.navigationTitle("WeSplit")
                 // Note: This needs to be added to the end of the 'Form', and NOT the NavView. That's because the NavView can house multiple views, so we need to apply the title to the specific view (our 'Form' viw, in this case), inside the NavView's body
