@@ -14,17 +14,20 @@ struct ContentView: View {
     @State private var numberOfPeople = 0
     @State private var tipPercentage = 20
     
-    var totalPerPerson: Double {
-        let accuratePeopleCount = Double(numberOfPeople + 2)
+    var currencyFormat: FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currencyCode ?? "USD")
+    
+    var grandTotal: Double {
         let tipSelection = Double(tipPercentage)
-        
         let tipValue = checkAmount * (tipSelection / 100)
         let grandTotal = checkAmount + tipValue
+        return grandTotal
+    }
+    
+    var totalPerPerson: Double {
+        let accuratePeopleCount = Double(numberOfPeople + 2)
         let amountPerPerson = grandTotal / accuratePeopleCount
         return amountPerPerson
     }
-    
-    let tipPercentages = [10, 15, 20, 25, 0]
     
     var body: some View {
         NavigationView {
@@ -41,7 +44,7 @@ struct ContentView: View {
                         // (This is also the old format for iOS 15, so we'll need to update this setup for how it's now structures in iOS 16.2
                      */
                 
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: currencyFormat)
                             .keyboardType(.decimalPad)
                             .focused($amountIsFocused)
                         //Note: The '@State' we're using for our checkAmount pays attention to any changes made to the vlue of that var, and takes care of reloading the tableView for us when the value of our @State var is changed so that any other parts of the app that refer to the value of that variable will also be updated (like this second section, which is set to display the value of our 'checkAmount' var. That wouldn't reflect the new amount which the var is set to in the first section if the tableView wasn't reloaded).
@@ -60,18 +63,27 @@ struct ContentView: View {
                         // This (^^^) doesn't look great, so let's make it our 'Section's header instead
                     
                     Picker("Tip percentage", selection: $tipPercentage) {
-                        ForEach(tipPercentages, id: \.self) {
+                        ForEach(1..<101, id: \.self) {
                             Text($0, format: .percent)
                         }
                     }
-                        .pickerStyle(.segmented)
+
                 } header: {
                     Text("How much tip do you want to leave?")
                 }
                 
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    Text(grandTotal, format: currencyFormat)
+                } header: {
+                    Text("Grand Total")
                 }
+                
+                Section {
+                    Text(totalPerPerson, format: currencyFormat)
+                } header: {
+                    Text("Amount per person")
+                }
+                
             }
                 .navigationTitle("WeSplit")
                     // Note: This (^^^) needs to be added to the end of the 'Form', and NOT the NavView. That's because the NavView can house multiple views, so we need to apply the title to the specific view (our 'Form' viw, in this case), inside the NavView's body
