@@ -10,11 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
+    @State private var score = 0
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
         // Note: "the shuffled() method automatically takes care of randomizing the array order for us" (Hacking with Swift).
     @State private var correctAnswer = Int.random(in: 0...2)
         // Note: "The Int.random(in:) method automatically picks a random number, which is perfect here – we’ll be using that to decide which country flag should be tapped" (Hacking with Swift).
+    
+    @State private var questionCount = 0
+    @State private var showingResults = false
     
     var body: some View {
         
@@ -56,7 +60,12 @@ struct ContentView: View {
                 .alert(scoreTitle, isPresented: $showingScore) {
                     Button("Continue", action: askQuestion)
                 } message: {
-                    Text("Your score is ???")
+                    Text("Your score is \(score)")
+                }
+                .alert("Results", isPresented: $showingResults) {
+                    Button("Play Again", action: resetGame)
+                } message: {
+                    Text("Your final score is \(score)/8")
                 }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 20)
@@ -66,7 +75,7 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 
-                Text("Score: ???")
+                Text("Score: \(score)")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
@@ -79,16 +88,29 @@ struct ContentView: View {
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
             scoreTitle = "Correct"
+            score += 1
         } else {
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong! That's the flag of \(countries[number])"
         }
         
-        showingScore = true
+        questionCount += 1
+        
+        if questionCount < 8 {
+            showingScore = true
+        } else {
+            showingResults = true
+        }
+        
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func resetGame() {
+        score = 0
+        askQuestion()
     }
 }
 
