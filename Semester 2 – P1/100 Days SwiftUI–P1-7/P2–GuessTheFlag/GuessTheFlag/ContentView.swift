@@ -19,32 +19,60 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            Color.blue
+            RadialGradient(stops: [
+                .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
+                .init(color: Color(red: 0.76, green: 0.15, blue: 0.26), location: 1)
+                ], center: .center, startRadius: 100, endRadius: 450)
                 .ignoresSafeArea()
             
-            VStack(spacing: 30){
-                VStack {
-                    Text("Tap the flag of")
-                        .foregroundColor(.white)
-                    Text(countries[correctAnswer])
-                        .foregroundColor(.white)
-                }
+            VStack{
+                Spacer()
                 
-                ForEach(0..<3) { number in
-                    Button {
-                        flagTapped(number)
-                    } label: {
-                        Image(countries[number])
-                            .renderingMode(.original)
-                            // Note: "The renderingMode(.original) modifier tells SwiftUI to render the original image pixels rather than trying to recolor them as a button" (Hacking with Swift).
+                Text("Guess the Flag")
+                    .font(.largeTitle.weight(.bold))
+                    .foregroundColor(.white)
+                
+                VStack(spacing: 15){
+                    VStack (spacing: 5){
+                        Text("Tap the flag of")
+                            .foregroundStyle(.secondary)
+                            .font(.subheadline.weight(.heavy))
+                        Text(countries[correctAnswer])
+                            .font(.largeTitle.weight(.semibold))
+                    }
+                    
+                    ForEach(0..<3) { number in
+                        Button {
+                            flagTapped(number)
+                        } label: {
+                            Image(countries[number])
+                                .renderingMode(.original)
+                                // Note: "The renderingMode(.original) modifier tells SwiftUI to render the original image pixels rather than trying to recolor them as a button" (Hacking with Swift).
+                        }
+                            .clipShape(Capsule())
+                            .shadow(radius: 15)
                     }
                 }
+                .alert(scoreTitle, isPresented: $showingScore) {
+                    Button("Continue", action: askQuestion)
+                } message: {
+                    Text("Your score is ???")
+                }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+                Spacer()
+                Spacer()
+                
+                Text("Score: ???")
+                    .foregroundColor(.white)
+                    .font(.title.bold())
+                
+                Spacer()
             }
-            .alert(scoreTitle, isPresented: $showingScore) {
-                Button("Continue", action: askQuestion)
-            } message: {
-                Text("Your score is ???")
-            }
+                .padding()
         }
     }
     
