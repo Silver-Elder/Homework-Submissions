@@ -9,6 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var useRedText = false
+    
+    /*
+     "it’s not allowed to write a view like this:
+
+         struct ContentView: View {
+             var body: View {
+                 Text("Hello World")
+             }
+         }
+     
+     "...[but it] is perfectly legal to write a view like this:
+
+         struct ContentView: View {
+             var body: Text {
+                 Text("Hello World")
+             }
+         }
+     
+     "Returning View makes no sense, because Swift wants to know what’s inside the view – it has a big hole that must be filled. On the other hand, returning Text is fine, because we’ve filled the hole; Swift knows what the view is" (Hacking with Swift).
+     */
+    
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -50,6 +73,34 @@ struct ContentView: View {
                 .background(.green)
                 .padding()
                 .background(.yellow)
+            
+            Button("Hello World") {
+                // flip the Boolean between true and false
+                useRedText.toggle()
+            }
+            .foregroundColor(useRedText ? .red : .blue)
+            
+            /*
+             NOTE: "You can often use regular if conditions to return different views based on some state, but this actually creates more work for SwiftUI – rather than seeing one Button being used with different colors, it now sees two different Button views, and when we flip the Boolean condition it will destroy one to create the other rather than just recolor what it has.
+             
+                "So, this kind of code might look the same, but it’s actually less efficient:
+
+             var body: some View {
+                 if useRedText {
+                     Button("Hello World") {
+                         useRedText.toggle()
+                     }
+                     .foregroundColor(.red)
+                 } else {
+                     Button("Hello World") {
+                         useRedText.toggle()
+                     }
+                     .foregroundColor(.blue)
+                 }
+             }
+                
+                "Sometimes using if statements are unavoidable, but where possible prefer to use the ternary operator instead" (Hacking with Swift).
+             */
         }
         
     }
