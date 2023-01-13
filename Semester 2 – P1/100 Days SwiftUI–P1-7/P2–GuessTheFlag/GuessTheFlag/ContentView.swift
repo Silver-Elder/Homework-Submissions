@@ -93,19 +93,18 @@ struct ContentView: View {
             scoreTitle = "Wrong! That's the flag of \(countries[number])"
         }
         
+        showingScore = true
+        
         questionCount += 1
-        
-        if questionCount < 8 {
-            showingScore = true
-        } else {
-            showingResults = true
-        }
-        
     }
     
     func askQuestion() {
-        countries.shuffle()
-        correctAnswer = Int.random(in: 0...2)
+        if questionCount < 8 {
+            countries.shuffle()
+            correctAnswer = Int.random(in: 0...2)
+        } else {
+            showingResults = true
+        }
     }
     
     func resetGame() {
