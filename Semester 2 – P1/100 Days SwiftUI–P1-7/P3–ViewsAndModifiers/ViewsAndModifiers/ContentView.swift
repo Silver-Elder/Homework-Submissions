@@ -12,6 +12,45 @@ struct ContentView: View {
     @State private var useRedText = false
     
     /*
+     "...trying to create a TextField bound to a local property will cause problems.
+
+     "However, you can create computed properties if you want, like this:
+     
+     */
+    
+    let motto1 = Text("nunquam titillandus")
+    var motto2: some View {
+         Text("Draco dormiens")
+     }
+        
+    // NOTE: "if you want to send multiple views back you have three options:
+     
+        // Option 1: Stack
+    var spellsV: some View {
+        VStack {
+            Text("Lumos")
+            Text("Obliviate")
+        }
+    }
+    
+        // Option 2: Group
+    var spellsG: some View {
+        Group {
+            Text("Lumos")
+            Text("Obliviate")
+        }
+    }
+    
+        // Option 3: Add the "@ViewBuilder" yourself
+    @ViewBuilder var spellsVB: some View {
+        Text("Lumos")
+        Text("Obliviate")
+    }
+        
+        // "I prefer to use @ViewBuilder because it mimics the way body works, however I’m also wary when I see folks cram lots of functionality into their properties – it’s usually a sign that their views are getting a bit too complex, and need to be broken up" (Hacking with Swift).
+    
+
+    /*
      "it’s not allowed to write a view like this:
 
          struct ContentView: View {
@@ -101,6 +140,25 @@ struct ContentView: View {
                 
                 "Sometimes using if statements are unavoidable, but where possible prefer to use the ternary operator instead" (Hacking with Swift).
              */
+            
+            VStack {
+                Text("Gryffindor")
+                    .font(.largeTitle)
+                    .blur(radius: 0)
+                Text("Hufflepuff")
+                Text("Ravenclaw")
+                Text("Slytherin")
+            }
+                .font(.title)
+                    // This can be overridden from within the VStack because .font() is an "environment" modifier...
+                .blur(radius: 5)
+                    // ... but .blur() cannot be overriden because it is a "regular" modifier, meaning that any blurs applied to the 'children' of the VStack are ADDED to the 'parent' VStack's blur effect
+            //Note: "To the best of my knowledge there is no way of knowing ahead of time which modifiers are environment modifiers and which are regular modifiers other than reading the individual documentation for each modifier and hope it’s mentioned. Still, I’d rather have them than not: being able to apply one modifier everywhere is much better than copying and pasting the same thing into multiple places" (Hacking with Swift).
+            motto1
+                .foregroundColor(.red)
+            motto2
+                .foregroundColor(.blue)
+
         }
         
     }
