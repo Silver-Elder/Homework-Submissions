@@ -7,6 +7,75 @@
 
 import SwiftUI
 
+/*
+ "To create a custom modifier, create a new struct that conforms to the ViewModifier protocol. This has only one requirement, which is a method called body that accepts whatever content it’s being given to work with, and must return some View":
+ */
+
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .padding()
+            .background(.blue)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+// "We can now use that with the modifier() modifier – yes, it’s a modifier called “modifier”, but it lets us apply any sort of modifier to a view" (Hacking with Swift), (see "Text("Hello World").modifier(Title())").
+
+/* "When working with custom modifiers, it’s usually a smart idea to create extensions on View that make them easier to use. For example, we might wrap the Title modifier in an extension such as this:
+ */
+
+ extension View {
+     func titleStyle() -> some View {
+         modifier(Title())
+     }
+ }
+ 
+// "We can now use the modifier like this:
+    // Text("Hello World").titleStyle()" (Hacking with Swift)
+
+/* "Remember, modifiers return new objects rather than modifying existing ones, so we could create one that embeds the view in a stack and adds another view:
+ */
+
+struct Watermark: ViewModifier {
+    var text: String
+
+    func body(content: Content) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            content
+            Text(text)
+                .font(.caption)
+                .foregroundColor(.white)
+                .padding(5)
+                .background(.black)
+        }
+    }
+}
+
+extension View {
+    func watermarked(with text: String) -> some View {
+        modifier(Watermark(text: text))
+    }
+}
+
+// "With that in place, we can now add a watermark to any view like this:" (Hacking with Swift), (see Color.blue near bottom).
+// Note: "Often folks wonder when it’s better to add a custom view modifier versus just adding a new method to View, and really it comes down to one main reason: custom view modifiers can have their own stored properties, whereas extensions to View cannot" (Hacking with Swift).
+
+struct CapsuleText: View {
+    var text: String
+
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            // .foregroundColor(.white)
+            .background(.blue)
+            .clipShape(Capsule())
+    }
+}
+
 struct ContentView: View {
     
     @State private var useRedText = false
@@ -48,6 +117,8 @@ struct ContentView: View {
     }
         
         // "I prefer to use @ViewBuilder because it mimics the way body works, however I’m also wary when I see folks cram lots of functionality into their properties – it’s usually a sign that their views are getting a bit too complex, and need to be broken up" (Hacking with Swift).
+    
+    
     
 
     /*
@@ -98,7 +169,7 @@ struct ContentView: View {
             {
                 print(type(of: self.body))
             }
-                .frame(width: 200, height: 200)
+                .frame(width: 100, height: 20)
                 .background(.red)
             
             Text("Hello, world!")
@@ -159,6 +230,48 @@ struct ContentView: View {
             motto2
                 .foregroundColor(.blue)
 
+            /*
+             VStack(spacing: 10) {
+                 Text("First")
+                     .font(.largeTitle)
+                     .padding()
+                     .foregroundColor(.white)
+                     .background(.blue)
+                     .clipShape(Capsule())
+
+                 Text("Second")
+                     .font(.largeTitle)
+                     .padding()
+                     .foregroundColor(.white)
+                     .background(.blue)
+                     .clipShape(Capsule())
+             }
+                
+                "Because those two text views are identical apart from their text, we can wrap them up in a new custom view, like this:" (see "CapsuleText @ top"), "[and] then use that CapsuleText view inside our original view, like this:"
+             
+            
+            VStack(spacing: 10) {
+                CapsuleText(text: "First")
+                CapsuleText(text: "Second")
+            }
+            
+            "Of course, we can also store some modifiers in the view and customize others when we use them. For example, if we removed foregroundColor() from CapsuleText, we could then apply custom colors when creating instances of that view like this:" (Hacking with Swift).
+             */
+            
+            VStack(spacing: 10) {
+                CapsuleText(text: "First")
+                    .foregroundColor(.white)
+                CapsuleText(text: "Second")
+                    .foregroundColor(.yellow)
+            }
+            
+            Color.blue
+                .frame(width: 150, height: 30)
+                .watermarked(with: "Hacking with Swift")
+            
+            Text("Hello World").modifier(Title())
+            
+            
         }
         
     }
