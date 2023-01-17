@@ -51,6 +51,7 @@ struct Watermark: ViewModifier {
                 .foregroundColor(.white)
                 .padding(5)
                 .background(.black)
+                .clipped()
         }
     }
 }
@@ -129,14 +130,15 @@ struct ContentView: View {
     
     @State private var useRedText = false
     
+    
+    let motto1 = Text("nunquam titillandus")
+    
     /*
      "...trying to create a TextField bound to a local property will cause problems.
 
      "However, you can create computed properties if you want, like this:
      
      */
-    
-    let motto1 = Text("nunquam titillandus")
     var motto2: some View {
          Text("Draco dormiens")
      }
@@ -192,16 +194,15 @@ struct ContentView: View {
     
     
     var body: some View {
-        
-        GridStack(rows: 1, columns: 2) { row, col in
             // For some reason, I can't embed this inside the VStack, but I can embed other stacks inside of it 🤷‍♂️
             VStack {
                 
                 
-                
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
+                GridStack(rows: 2, columns: 10) { row, col in
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                }
                 
                 /*
                  
@@ -243,7 +244,7 @@ struct ContentView: View {
                     // flip the Boolean between true and false
                     useRedText.toggle()
                 }
-                .foregroundColor(useRedText ? .red : .blue)
+                .foregroundColor(useRedText ? .red : .purple)
                 
                 /*
                  NOTE: "You can often use regular if conditions to return different views based on some state, but this actually creates more work for SwiftUI – rather than seeing one Button being used with different colors, it now sees two different Button views, and when we flip the Boolean condition it will destroy one to create the other rather than just recolor what it has.
@@ -320,17 +321,47 @@ struct ContentView: View {
                         .foregroundColor(.yellow)
                 }
                 
+                Text("Hello World").modifier(Title())
+                
                 Color.blue
                     .frame(width: 150, height: 30)
                     .watermarked(with: "Hacking with Swift")
                 
-                Text("Hello World").modifier(Title())
-                
-                
             }
-        }
     }
 }
+
+/* Custom Biunding
+ "... we can create four toggle switches: one each for the individual Booleans, and one control switch that agrees or disagrees to all three at once:
+
+ struct ContentView: View {
+     @State private var agreedToTerms = false
+     @State private var agreedToPrivacyPolicy = false
+     @State private var agreedToEmails = false
+
+     var body: some View {
+         let agreedToAll = Binding<Bool>(
+             get: {
+                 agreedToTerms && agreedToPrivacyPolicy && agreedToEmails
+             },
+             set: {
+                 agreedToTerms = $0
+                 agreedToPrivacyPolicy = $0
+                 agreedToEmails = $0
+             }
+         )
+
+         return VStack {
+             Toggle("Agree to terms", isOn: $agreedToTerms)
+             Toggle("Agree to privacy policy", isOn: $agreedToPrivacyPolicy)
+             Toggle("Agree to receive shipping emails", isOn: $agreedToEmails)
+             Toggle("Agree to all", isOn: agreedToAll)
+         }
+     }
+ }
+ 
+ "Again, custom bindings aren’t something you’ll want that often, but it’s so important to take the time to look behind the curtain and understand what’s going on. Even though it’s incredibly smart, SwiftUI is just a tool, not magic!" (Hacking with Swift).
+ */
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
