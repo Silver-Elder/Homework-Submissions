@@ -11,6 +11,7 @@
 		9DEF96592977054700A7909E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF96582977054700A7909E /* ContentView.swift */; };
 		9DEF965B2977054A00A7909E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF965A2977054A00A7909E /* Assets.xcassets */; };
 		9DEF965E2977054A00A7909E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DEF965D2977054A00A7909E /* Preview Assets.xcassets */; };
+		9DEF9665297842B200A7909E /* SleepCalculator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF9664297842B200A7909E /* SleepCalculator.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		9DEF96582977054700A7909E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9DEF965A2977054A00A7909E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DEF965D2977054A00A7909E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9DEF9664297842B200A7909E /* SleepCalculator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SleepCalculator.mlmodel; path = ../../SleepCalculator.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				9DEF96562977054700A7909E /* P4_BetterRestApp.swift */,
 				9DEF96582977054700A7909E /* ContentView.swift */,
+				9DEF9664297842B200A7909E /* SleepCalculator.mlmodel */,
 				9DEF965A2977054A00A7909E /* Assets.xcassets */,
 				9DEF965C2977054A00A7909E /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEF9665297842B200A7909E /* SleepCalculator.mlmodel in Sources */,
 				9DEF96592977054700A7909E /* ContentView.swift in Sources */,
 				9DEF96572977054700A7909E /* P4_BetterRestApp.swift in Sources */,
 			);
