@@ -4,7 +4,6 @@
 //
 //  Created by Sterling Jenkins on 11/4/22.
 //
-
 import UIKit
 
 class ProfileTableViewController: UITableViewController {
@@ -14,13 +13,11 @@ class ProfileTableViewController: UITableViewController {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
-
     var posts: [Post] = [
         Post(title: "My first post", bodyText: "Currently on my way to become a mopile app developer, I'm a tech-loving kid who aspired to one day become an Unmanned Aerial Systems (Drone) Engineer.", user: "Sterling Jenkins", comments: ""),
         Post(title: "Where Do I Start?", bodyText: "First things first, I've got to pass this coding class; but I'm a number of projects behind... Which one should I work on first?", user: "Sterling Jenkins", comments: ""),
@@ -75,14 +72,13 @@ class ProfileTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
     }
     */
 
@@ -96,7 +92,6 @@ class ProfileTableViewController: UITableViewController {
 
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.

@@ -7,8 +7,10 @@
 
 import UIKit
 
-class ProfileTableViewCell: UITableViewCell {
 
+
+class ProfileTableViewCell: UITableViewCell {
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,5 +21,5 @@ class ProfileTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-
+    
 }

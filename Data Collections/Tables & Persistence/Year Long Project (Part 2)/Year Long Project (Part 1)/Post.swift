@@ -4,7 +4,6 @@
 //
 //  Created by Sterling Jenkins on 11/2/22.
 //
-
 import Foundation
 
 struct Post {

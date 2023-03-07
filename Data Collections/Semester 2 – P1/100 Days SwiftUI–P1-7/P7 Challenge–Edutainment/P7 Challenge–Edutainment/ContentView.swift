@@ -22,7 +22,9 @@ struct ContentView: View {
     @State private var questionsAnswered: Int = 0
     @State private var answersRight: Int = 0
     
+    @State private var questionAlertShowing = false
     @State private var scoreAlertShowing = false
+    @State private var correctAnswerAlertShowing = false
     
     var body: some View {
         Form {
@@ -50,12 +52,14 @@ struct ContentView: View {
                         Text("\($0)")
                     }
                 }
+                Button("Ready!") {
+                    timesNumber = timesTableNumberSelector()
+                    questionAlertShowing.toggle()
+                }
             } header: {
                 Text("How many questions do you want to do?")
             }
-            
-            Section {
-                Text(" \(timesNumber + 1) x \(questionNumber) = ???")
+            .alert("Question: \(questionCount + 1)", isPresented: $questionAlertShowing, actions: {
                 TextField("Your answer:", text: $answer)
                 Button("Submit"){
                     if "\((timesNumber + 1) * questionNumber)" == answer {
@@ -68,13 +72,20 @@ struct ContentView: View {
                     timesNumber = timesTableNumberSelector()
                     questionNumber = Int.random(in: 1...12)
                     answer = ""
-                    if questionsAnswered >= (questionCount + 1) {
+                    correctAnswerAlertShowing = true
+                }
+            }, message: {
+                Text(" \(timesNumber + 1) x \(questionNumber) = ???")
+
+            })
+            .alert(answerCorrect, isPresented: $correctAnswerAlertShowing) {
+                Button("Next") {
+                    if questionsAnswered <= (questionCount) {
+                        questionAlertShowing = true
+                    } else {
                         scoreAlertShowing = true
                     }
-                    
                 }
-            } header: {
-                Text(answerCorrect + "Question: \(questionCount + 1)")
             }
             .alert("FinalResults", isPresented: $scoreAlertShowing) {
                 Button("Play Again?") {
@@ -83,6 +94,7 @@ struct ContentView: View {
             } message: {
                 Text("Your final score was \(answersRight)/\(questionCount + 1)")
             }
+        
 
         }
         .padding()
@@ -106,10 +118,12 @@ struct ContentView: View {
         questionsAnswered = 0
         answersRight = 0
         answer = ""
+        answerCorrect = ""
         
         timesNumber = 0
         questionNumber = Int.random(in: 1...12)
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

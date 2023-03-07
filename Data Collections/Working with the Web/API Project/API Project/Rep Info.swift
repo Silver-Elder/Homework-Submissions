@@ -16,6 +16,7 @@ struct RepInfo: Codable {
     enum CodingKeys: String, CodingKey {
         case name, party, state, website = "link"
     }
+    
 }
 
 struct SearchResults: Codable {
